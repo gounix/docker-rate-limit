@@ -16,6 +16,8 @@ metrics:
 env:
   REFRESH_SECONDS: 300
   PORT_NUMBER: 9902
+  # IMAGEPULL_SECRET: "regcred"
+  # NAMESPACE: "docker-rate-limit"
   # optional proxy configuration
   # HTTPS_PROXY: "http://proxy.example.com:8080"
 
@@ -28,7 +30,7 @@ image:
   # This sets the pull policy for images.
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.0"
+  tag: "1.1"
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
@@ -133,10 +135,10 @@ httpRoute:
 
 resources:
   limits:
-    cpu: 50m
+    cpu: 100m
     memory: 100Mi
   requests:
-    cpu: 50m
+    cpu: 100m
     memory: 100Mi
 
 # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
