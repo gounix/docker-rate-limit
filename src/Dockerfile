@@ -1,6 +1,6 @@
 ARG GOVERSION=1.22.2
 
-FROM prive.gounix.nl/docker.io/library/golang:${GOVERSION}-alpine AS build
+FROM docker.io/library/golang:${GOVERSION}-alpine AS build
 ARG GOVERSION
 WORKDIR /
 COPY ./ /
@@ -10,7 +10,7 @@ RUN go mod tidy -C main
 
 RUN go build -C main -o docker-rate-limit main.go
 
-FROM prive.gounix.nl/docker.io/library/golang:${GOVERSION}-alpine
+FROM docker.io/library/golang:${GOVERSION}-alpine
 ARG GOVERSION
 
 COPY --from=build ./main/docker-rate-limit /docker-rate-limit
