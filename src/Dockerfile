@@ -1,11 +1,20 @@
-FROM python:3.14.2-slim
+ARG GOVERSION=1.22.2
 
-WORKDIR /usr/src/app
+FROM prive.gounix.nl/docker.io/library/golang:${GOVERSION}-alpine AS build
+ARG GOVERSION
+WORKDIR /
+COPY ./ /
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+RUN go mod edit -C main -go $GOVERSION
+RUN go mod tidy -C main
 
-COPY docker-rate-limit.py ./
+RUN go build -C main -o docker-rate-limit main.go
 
-CMD [ "python3", "./docker-rate-limit.py" ]
+FROM prive.gounix.nl/docker.io/library/golang:${GOVERSION}-alpine
+ARG GOVERSION
+
+COPY --from=build ./main/docker-rate-limit /docker-rate-limit
+
+WORKDIR /
+CMD [ "/docker-rate-limit" ]
 
