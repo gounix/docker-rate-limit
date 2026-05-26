@@ -21,6 +21,11 @@ kubectl create secret docker-registry regcred -n docker-rate-limit --docker-serv
 ```
 This secret has to be created in the namespace of the docker-rate-limit.
 
+# Available metrics
+
+There are two metrics available, `ratelimit_limit` and `ratelimit_remaining`, both have a label `account` that is set to the 
+ccount that is set in the `IMAGEPULL_SECRET`. When using an anonymous connection `account` is set to your ip address.
+
 # Helm chart
 
 [github](https://github.com/gounix/docker-rate-limit/tree/main/helm-charts)
