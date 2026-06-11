@@ -1,6 +1,6 @@
 IMAGE=docker-rate-limit
-IMAGE_VERSION=1.2.0
-GOVERSION=1.26.3
+IMAGE_VERSION=1.2.1
+GOVERSION=1.26.4
 
 .PHONY: dockerhub
 
